@@ -47,7 +47,7 @@ The installer is interactive and creates timestamped backups before replacing ex
 | `codex/config/global/config.toml` | `$CODEX_HOME/config.toml` | Portable user-level Codex defaults and agent registrations |
 | `codex/config/global/agents/*.toml` | `$CODEX_HOME/agents/ai-configuration/*.toml` | Namespaced custom reviewer, researcher, and implementer roles |
 
-Codex uses more-specific project files in each project. Project-specific `.codex/config.toml` and `AGENTS.md` files should remain with those projects rather than being copied into this global repository.
+Codex layers more-specific project files on top of these global defaults. Project-specific `.codex/config.toml` and `AGENTS.md` files belong in their respective projects and should remain there; this repository manages only the portable global layer.
 
 ## Agent and context policy
 
