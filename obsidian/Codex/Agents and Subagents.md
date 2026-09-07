@@ -15,6 +15,12 @@
 
 This is a routing policy, not four copies of every role. The role determines how the agent works; the spawn-time model and effort determine how much reasoning it uses. Explicit spawn values take precedence over `[agents]` defaults.
 
+## Primary versus delegated routing
+
+The Luna Medium default is for the primary assistant handling the direct user conversation. It is not a restriction on delegated workers. A parent agent may assign a delegated task to any model and effort supported by the current runtime, including Luna, Sol, Terra, or another available model, when that is appropriate for the task. Explicit model and effort settings on a delegated task take precedence over the primary default.
+
+If a preferred model or delegation tool is unavailable, the worker must continue with the best available route and report what was actually used. It must not refuse work, claim that no files were inspected, or emit the primary-chat restart message solely because Sol or another preferred route is unavailable.
+
 ## Correct delegation pattern
 
 1. Keep the main task moving locally; delegate only a bounded, non-overlapping subtask.

@@ -5,6 +5,10 @@
 **Route:** Luna Medium.
 **Delegations:** None.
 
+## Latest routing clarification
+
+The primary/direct-chat Luna Medium requirement must not be propagated as a restriction to delegated agents. Delegated agents may use any available model and effort, and must continue with the best available route if a preferred model such as Sol is unavailable. The primary-chat restart message applies only to the primary assistant.
+
 ## Changed
 
 - Added repository README and agent instructions.
