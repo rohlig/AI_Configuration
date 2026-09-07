@@ -9,6 +9,8 @@
 
 The primary/direct-chat Luna Medium requirement must not be propagated as a restriction to delegated agents. Delegated agents may use any available model and effort, and must continue with the best available route if a preferred model such as Sol is unavailable. The primary-chat restart message applies only to the primary assistant.
 
+The worker contract is now explicit: a delegated agent must stay within its assigned bounded subtask and must not spawn a further worker unless the parent explicitly authorizes nested delegation with a separate scope.
+
 ## Changed
 
 - Added repository README and agent instructions.

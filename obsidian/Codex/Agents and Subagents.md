@@ -21,6 +21,10 @@ The Luna Medium default is for the primary assistant handling the direct user co
 
 If a preferred model or delegation tool is unavailable, the worker must continue with the best available route and report what was actually used. It must not refuse work, claim that no files were inspected, or emit the primary-chat restart message solely because Sol or another preferred route is unavailable.
 
+## Worker identity and nested delegation
+
+Every delegated task starts as a worker task, even when its assigned model is Sol or another high-capability model. The worker executes only the bounded scope supplied by its parent and must not reinterpret the request as a new primary chat. It must not spawn another worker by default. Nested delegation is allowed only when the parent explicitly authorizes it and gives a separate bounded scope; otherwise the worker reports the need back to the parent.
+
 ## Correct delegation pattern
 
 1. Keep the main task moving locally; delegate only a bounded, non-overlapping subtask.
