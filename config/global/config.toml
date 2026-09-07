@@ -1,0 +1,37 @@
+# Portable Codex baseline. Review before installing over an existing config.toml.
+# Machine-specific MCP paths, project trust paths, credentials, caches, and app state
+# intentionally stay out of this file.
+
+model = "gpt-5.6-luna"
+model_reasoning_effort = "medium"
+# Compact before the long-context pricing boundary has a chance to be crossed.
+# This is a policy buffer, not a guarantee: tool/runtime overhead can vary.
+model_auto_compact_token_limit = 240000
+tool_output_token_limit = 12000
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+web_search = "cached"
+service_tier = "default"
+
+[agents]
+enabled = true
+max_concurrent_threads_per_session = 6
+default_subagent_model = "gpt-5.6-luna"
+default_subagent_reasoning_effort = "medium"
+interrupt_message = true
+
+[agents.portable_reviewer]
+description = "Find correctness, security, scope, and test risks in a change."
+config_file = "./agents/ai-configuration/reviewer.toml"
+
+[agents.portable_researcher]
+description = "Research a bounded question using authoritative sources and return evidence."
+config_file = "./agents/ai-configuration/researcher.toml"
+
+[agents.portable_implementer]
+description = "Implement a bounded change, validate it, and report changed files and evidence."
+config_file = "./agents/ai-configuration/implementer.toml"
+
+[features]
+multi_agent = true
+js_repl = false
