@@ -18,18 +18,26 @@
 - Added an interactive/check-only sync script with timestamped backups.
 - Added the Obsidian-compatible documentation base, current-state record, research note, best-practices note, and unresolved-issues register.
 
+## Structure update
+
+- Moved all Codex-specific source and tooling under `codex/`.
+- Separated general AI-assisted coding guidance into `obsidian/General/`.
+- Grouped Codex-specific architecture, installation, agent, research, operations, and context-budget notes under `obsidian/Codex/`.
+- Updated README, repository instructions, local personal instructions, and all validation paths.
+- Corrected custom-agent identity fields to match their registered `portable_*` names and removed hard-coded Luna/Medium overrides so routing can vary per task.
+
 ## Validation completed
 
-- `bash -n scripts/sync-config.sh` passed.
+- `bash -n codex/scripts/sync-config.sh` passed.
 - Help/list modes passed.
 - `--check` correctly reported a missing file in an isolated temporary `CODEX_HOME`.
 - `--install --yes` created the target in the temporary home.
 - Replacing a different target created a timestamped backup and a subsequent check passed.
-- Real-machine check correctly reports the expected differences: the repository now adds the new context-cost policy, portable `config.toml`, and custom agents; no real machine file was changed.
+- Real-machine check reports all managed targets current after the structure-only source path update; no configuration content needed to change.
 - Official research confirmed the GPT-5.6 Sol long-context pricing rule and API token-count/compaction capabilities.
 - Read-only audit found no concrete personal paths, names, email addresses, credentials, or tokens in the repository.
 - Active config parsing confirmed routing, context policy, agent registration, and preservation of existing MCP/plugin sections.
 
 ## Next step
 
-After user confirmation, run the additive installer and verify that `--check` reports all managed entries current while the existing local MCP/plugin/project settings remain present.
+Keep the public/general versus Codex-specific boundary clear when adding future documentation or configuration.

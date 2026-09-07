@@ -7,7 +7,7 @@ This repository is a portable source-of-truth layer for reusable AI development 
 ## Flow
 
 ```text
-Git repository/config/global/
+Git repository/codex/config/
         |
         | explicit check or interactive install
         v
@@ -21,9 +21,9 @@ Codex loads global instructions/config + project-specific layers
 
 | Source | Target | Policy |
 |---|---|---|
-| `config/global/AGENTS.md` | `$CODEX_HOME/AGENTS.md` | Managed; interactive install; existing file is backed up before replacement |
-| `config/global/config.toml` | `$CODEX_HOME/config.toml` | Managed; contains the reviewed portable baseline and agent registrations |
-| `config/global/agents/*.toml` | `$CODEX_HOME/agents/ai-configuration/*.toml` | Managed custom agent definitions in a collision-resistant namespace |
+| `codex/config/global/AGENTS.md` | `$CODEX_HOME/AGENTS.md` | Managed; additive instruction block; existing file is backed up before update |
+| `codex/config/global/config.toml` | `$CODEX_HOME/config.toml` | Managed keys merged into the existing Codex config |
+| `codex/config/global/agents/*.toml` | `$CODEX_HOME/agents/ai-configuration/*.toml` | Managed custom agent definitions in a collision-resistant namespace |
 
 Codex project-local `.codex/config.toml` and project `AGENTS.md` files remain in their own repositories. More-specific project instructions are not copied into this global repository.
 

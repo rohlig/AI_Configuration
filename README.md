@@ -22,13 +22,13 @@ git clone <repository-url> ~/Documents/Code/AI_Configuration
 cd ~/Documents/Code/AI_Configuration
 
 # Inspect the machine without changing it.
-./scripts/sync-config.sh --check
+./codex/scripts/sync-config.sh --check
 
 # Check that the repository contains no obvious personal or secret material.
 ./scripts/audit-public.sh
 
 # Review and approve each proposed machine-level change.
-./scripts/sync-config.sh --install
+./codex/scripts/sync-config.sh --install
 ```
 
 The installer is interactive and creates timestamped backups before replacing existing files. Use `--yes` only after reviewing the planned changes.
@@ -37,9 +37,9 @@ The installer is interactive and creates timestamped backups before replacing ex
 
 | Repository source | Codex target | Purpose |
 |---|---|---|
-| `config/global/AGENTS.md` | `$CODEX_HOME/AGENTS.md` | Global working, delegation, and context-budget instructions |
-| `config/global/config.toml` | `$CODEX_HOME/config.toml` | Portable user-level Codex defaults and agent registrations |
-| `config/global/agents/*.toml` | `$CODEX_HOME/agents/ai-configuration/*.toml` | Namespaced custom reviewer, researcher, and implementer roles |
+| `codex/config/global/AGENTS.md` | `$CODEX_HOME/AGENTS.md` | Global working, delegation, and context-budget instructions |
+| `codex/config/global/config.toml` | `$CODEX_HOME/config.toml` | Portable user-level Codex defaults and agent registrations |
+| `codex/config/global/agents/*.toml` | `$CODEX_HOME/agents/ai-configuration/*.toml` | Namespaced custom reviewer, researcher, and implementer roles |
 
 Codex uses more-specific project files in each project. Project-specific `.codex/config.toml` and `AGENTS.md` files should remain with those projects rather than being copied into this global repository.
 
@@ -49,7 +49,7 @@ The default is one primary agent with small, bounded specialists only when work 
 
 The configuration also enables early context compaction at `240000` input tokens and limits retained tool output to `12000` tokens. This is a cost-control buffer around the documented long-context pricing boundary; it is not a guarantee because system instructions and tool overhead also count.
 
-Read [`obsidian/Agents and Subagents.md`](obsidian/Agents%20and%20Subagents.md) and [`obsidian/Token Budget and Context Management.md`](obsidian/Token%20Budget%20and%20Context%20Management.md) for the rationale and operating rules.
+Read [`obsidian/Codex/Agents and Subagents.md`](obsidian/Codex/Agents%20and%20Subagents.md) and [`obsidian/Codex/Token Budget and Context Management.md`](obsidian/Codex/Token%20Budget%20and%20Context%20Management.md) for the rationale and operating rules.
 
 ## What is intentionally excluded
 
@@ -66,19 +66,19 @@ When a local setting is useful but not portable, document the category and the s
 ## Documentation
 
 - [`obsidian/Home.md`](obsidian/Home.md) — vault entry point.
-- [`obsidian/Architecture.md`](obsidian/Architecture.md) — scope, data flow, dependencies, and constraints.
-- [`obsidian/Current Configuration.md`](obsidian/Current%20Configuration.md) — human-readable current-state inventory.
-- [`obsidian/Installation Workflow.md`](obsidian/Installation%20Workflow.md) — install, backup, rollback, and new-machine setup.
-- [`obsidian/Best Practices/AI-Assisted Coding.md`](obsidian/Best%20Practices/AI-Assisted%20Coding.md) — coding workflow and review principles.
-- [`obsidian/Operations/Unresolved Issues.md`](obsidian/Operations/Unresolved%20Issues.md) — open portability and research questions.
+- [`obsidian/Codex/Architecture.md`](obsidian/Codex/Architecture.md) — Codex scope, data flow, dependencies, and constraints.
+- [`obsidian/Codex/Current Configuration.md`](obsidian/Codex/Current%20Configuration.md) — human-readable Codex current-state inventory.
+- [`obsidian/Codex/Installation Workflow.md`](obsidian/Codex/Installation%20Workflow.md) — install, backup, rollback, and new-machine setup.
+- [`obsidian/General/AI-Assisted Coding.md`](obsidian/General/AI-Assisted%20Coding.md) — tool-independent AI coding workflow and review principles.
+- [`obsidian/Codex/Operations/Unresolved Issues.md`](obsidian/Codex/Operations/Unresolved%20Issues.md) — open Codex portability and research questions.
 
 ## Updating safely
 
-1. Edit the versioned source under `config/global/`.
+1. Edit the versioned Codex source under `codex/config/`.
 2. Run `./scripts/audit-public.sh`.
 3. Parse and validate the TOML and shell files.
-4. Run `./scripts/sync-config.sh --check`.
+4. Run `./codex/scripts/sync-config.sh --check`.
 5. Review the diff and update the Obsidian checkpoint.
-6. Run `./scripts/sync-config.sh --install` and approve the exact targets.
+6. Run `./codex/scripts/sync-config.sh --install` and approve the exact targets.
 
 Official Codex behavior changes over time. The dated research note links to the primary documentation used for the current layout.

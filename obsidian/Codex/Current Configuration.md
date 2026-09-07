@@ -6,9 +6,9 @@
 
 The repository began empty apart from Git. The initial portable baseline now consists of:
 
-- `config/global/AGENTS.md`: the current reusable global routing and continuity instructions.
-- `config/global/config.toml`: portable baseline with model, approval, sandbox, cached web search, feature, and current `[agents]` defaults.
-- `config/global/agents/*.toml`: reviewer, researcher, and implementer definitions installed under the `ai-configuration` namespace.
+- `codex/config/global/AGENTS.md`: the current reusable global routing and continuity instructions.
+- `codex/config/global/config.toml`: portable baseline with model, approval, sandbox, cached web search, feature, and current `[agents]` defaults.
+- `codex/config/global/agents/*.toml`: reviewer, researcher, and implementer definitions installed under the `ai-configuration` namespace.
 - The existing machine file was not copied wholesale because it includes machine-specific paths, runtime integration values, and sensitive environment-related values.
 
 ## Machine targets
@@ -18,7 +18,7 @@ Official Codex documentation identifies these user-level targets:
 - `~/.codex/AGENTS.md` (or `$CODEX_HOME/AGENTS.md`) for global instructions.
 - `~/.codex/config.toml` (or `$CODEX_HOME/config.toml`) for user-level settings.
 
-The current repository has not installed or overwritten either target. Run `./scripts/sync-config.sh --check` to compare the managed source with the current machine.
+Run `./codex/scripts/sync-config.sh --check` to compare the managed Codex source with the current machine.
 
 ## Existing machine inventory
 

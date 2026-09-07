@@ -7,7 +7,7 @@ This repository is the portable source of truth for reusable AI-assisted develop
 ## Working agreements
 
 - Inspect the current repository state before changing files.
-- Treat `config/global/` as source files and the user’s Codex home as a deployment target.
+- Treat `codex/config/` as Codex source files and the user’s Codex home as a deployment target. Keep general AI practices under `obsidian/General/`.
 - Before running a command that writes to `~/.codex` or another machine-level location, explain the files and paths involved and ask for confirmation. The sync script already implements this safeguard.
 - Prefer a dry run or `--check` before installation. Preserve backups when replacing an existing file.
 - Never store credentials, personal data, machine-specific absolute paths, or plugin secrets in Git.
@@ -20,13 +20,13 @@ This repository is the portable source of truth for reusable AI-assisted develop
 Run:
 
 ```sh
-./scripts/sync-config.sh --check
-./scripts/sync-config.sh --help
+./codex/scripts/sync-config.sh --check
+./codex/scripts/sync-config.sh --help
 ./scripts/audit-public.sh
 ```
 
-For shell changes, also run `bash -n scripts/sync-config.sh` and exercise the check mode against a temporary `CODEX_HOME`.
+For Codex shell changes, also run `bash -n codex/scripts/sync-config.sh` and exercise the check mode against a temporary `CODEX_HOME`.
 
 ## Documentation contract
 
-The Obsidian base in `obsidian/` must cover scope, architecture, data/control flow, dependencies, operational paths, constraints, tests, decisions, and unresolved issues. Update `obsidian/Operations/Checkpoint.md` before handoff.
+The Obsidian base in `obsidian/` must distinguish general AI practices from Codex-specific configuration, architecture, data/control flow, dependencies, operational paths, constraints, tests, decisions, and unresolved issues. Update `obsidian/Codex/Operations/Checkpoint.md` before handoff.

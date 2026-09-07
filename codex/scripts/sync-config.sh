@@ -16,7 +16,7 @@ Options:
 EOF
 }
 
-repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 codex_home="${CODEX_HOME:-${HOME}/.codex}"
 command="check"
 assume_yes="false"
@@ -41,16 +41,16 @@ if [[ "$codex_home" != /* ]]; then
   exit 2
 fi
 
-source_agents="$repo_root/config/global/AGENTS.md"
+source_agents="$repo_root/codex/config/global/AGENTS.md"
 target_agents="$codex_home/AGENTS.md"
-source_config="$repo_root/config/global/config.toml"
+source_config="$repo_root/codex/config/global/config.toml"
 target_config="$codex_home/config.toml"
 
 managed_sources=("$source_agents:$target_agents" "$source_config:$target_config")
 while IFS= read -r source_agent; do
   agent_name="$(basename "$source_agent")"
   managed_sources+=("$source_agent:$codex_home/agents/ai-configuration/$agent_name")
-done < <(find "$repo_root/config/global/agents" -maxdepth 1 -type f -name '*.toml' -print | sort)
+done < <(find "$repo_root/codex/config/global/agents" -maxdepth 1 -type f -name '*.toml' -print | sort)
 
 if [[ "$command" == "list" ]]; then
   printf '%s\n' "Managed files:"
@@ -66,9 +66,9 @@ files_current() {
   local target_file="$2"
   [[ -e "$target_file" ]] || return 1
   if [[ "$source_file" == "$source_agents" ]]; then
-    python3 "$repo_root/scripts/merge-agents.py" --check "$source_file" "$target_file"
+    python3 "$repo_root/codex/scripts/merge-agents.py" --check "$source_file" "$target_file"
   elif [[ "$source_file" == "$source_config" ]]; then
-    python3 "$repo_root/scripts/merge-config.py" --check "$source_file" "$target_file"
+    python3 "$repo_root/codex/scripts/merge-config.py" --check "$source_file" "$target_file"
   else
     cmp -s "$source_file" "$target_file"
   fi
@@ -111,10 +111,10 @@ for mapping in "${managed_sources[@]}"; do
     printf 'Backed up existing file to %s\n' "$backup_dir/$(basename "$target_file")"
   fi
   if [[ "$source_file" == "$source_agents" ]]; then
-    python3 "$repo_root/scripts/merge-agents.py" "$source_file" "$target_file"
+    python3 "$repo_root/codex/scripts/merge-agents.py" "$source_file" "$target_file"
     printf 'Merged portable instructions into %s\n' "$target_file"
   elif [[ "$source_file" == "$source_config" ]]; then
-    python3 "$repo_root/scripts/merge-config.py" "$source_file" "$target_file"
+    python3 "$repo_root/codex/scripts/merge-config.py" "$source_file" "$target_file"
     printf 'Merged portable settings into %s\n' "$target_file"
   else
     cp "$source_file" "$target_file"

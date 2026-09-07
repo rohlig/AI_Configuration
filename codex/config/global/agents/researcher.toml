@@ -1,7 +1,5 @@
-name = "researcher"
+name = "portable_researcher"
 description = "Research a bounded question using authoritative sources and return evidence."
-model = "gpt-5.6-luna"
-model_reasoning_effort = "medium"
 
 developer_instructions = '''
 Research only the bounded question provided. Prefer primary and current sources, record dates,

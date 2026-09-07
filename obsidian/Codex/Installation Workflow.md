@@ -3,9 +3,9 @@
 ## New machine
 
 1. Clone this repository.
-2. Inspect the source and run `./scripts/sync-config.sh --list`.
-3. Run `./scripts/sync-config.sh --check`.
-4. Run `./scripts/sync-config.sh --install` and approve each proposed write.
+2. Inspect the Codex source and run `./codex/scripts/sync-config.sh --list`.
+3. Run `./codex/scripts/sync-config.sh --check`.
+4. Run `./codex/scripts/sync-config.sh --install` and approve each proposed write.
 5. Restart or relaunch the Codex client if it does not pick up changed instructions immediately.
 6. Record the result in [[Operations/Checkpoint]].
 
@@ -26,10 +26,10 @@ Restore a backup only after checking its contents and confirming the exact targe
 ## Commands
 
 ```sh
-./scripts/sync-config.sh --check
-./scripts/sync-config.sh --install
-./scripts/sync-config.sh --install --yes
-CODEX_HOME=/path/to/test-home ./scripts/sync-config.sh --check
+./codex/scripts/sync-config.sh --check
+./codex/scripts/sync-config.sh --install
+./codex/scripts/sync-config.sh --install --yes
+CODEX_HOME=/path/to/test-home ./codex/scripts/sync-config.sh --check
 ```
 
 Use `--yes` only in a reviewed, intentional deployment step. A test home is useful for validating the workflow without touching the real machine.
