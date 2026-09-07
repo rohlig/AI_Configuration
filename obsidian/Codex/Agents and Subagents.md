@@ -23,7 +23,9 @@ If a preferred model or delegation tool is unavailable, the worker must continue
 
 ## Worker identity and nested delegation
 
-Every delegated task starts as a worker task, even when its assigned model is Sol or another high-capability model. The worker executes only the bounded scope supplied by its parent and must not reinterpret the request as a new primary chat. It must not spawn another worker by default. Nested delegation is allowed only when the parent explicitly authorizes it and gives a separate bounded scope; otherwise the worker reports the need back to the parent.
+Every delegated task starts as a worker task, even when its assigned model is Sol or another high-capability model. The worker executes only the bounded scope supplied by its parent and must not reinterpret the request as a new primary chat. It must not create, fork, list, open, or wait on another chat/thread/task, and must not spawn another worker by default. Nested delegation is allowed only when the parent explicitly authorizes it and gives a separate bounded scope; otherwise the worker reports the need back to the parent.
+
+The parent should prefix each delegated prompt with `WORKER TASK — DO NOT DELEGATE` and provide the scope, read/write permission, expected completion payload, and parent task/agent ID when available. “Act as Sol High” selects the worker's route; it is not permission to create another task. If the marker or runtime worker identity is missing, the current task continues and the ambiguity is reported rather than resolved by spawning another task.
 
 ## Correct delegation pattern
 

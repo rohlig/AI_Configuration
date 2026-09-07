@@ -11,6 +11,8 @@ The primary/direct-chat Luna Medium requirement must not be propagated as a rest
 
 The worker contract is now explicit: a delegated agent must stay within its assigned bounded subtask and must not spawn a further worker unless the parent explicitly authorizes nested delegation with a separate scope.
 
+The contract now also forbids worker-side chat/thread/task management. Parent delegation prompts should carry an explicit `WORKER TASK — DO NOT DELEGATE` marker; model selection such as “Act as Sol High” does not authorize another task.
+
 ## Changed
 
 - Added repository README and agent instructions.
