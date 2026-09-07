@@ -1,17 +1,23 @@
-# Portable AI Configuration
+# AI Configuration
 
-Portable, reviewable defaults for AI-assisted software development across machines.
+An evolving, public playbook for making AI-assisted software development more efficient, reliable, and maintainable.
 
-This repository is designed to be public. It stores reusable Codex instructions, safe user-level defaults, custom agent roles, and an Obsidian-compatible handbook. It deliberately does not store credentials, chat history, plugin caches, databases, or machine-specific runtime state.
+It collects practical guidance for working with coding agents: how to structure tasks, choose model effort, delegate to subagents without duplicating context, control long-context costs, validate generated changes, and keep agent configuration understandable and portable. Codex is the first supported client, but the general practices are intended to remain useful beyond one tool.
 
-## Why this exists
+The repository is also a working laboratory: it records the configuration and lessons I use in practice, researches current agent capabilities and settings, and turns useful findings into reusable public guidance. The goal is not to present one universal setup, but to provide a clear, reviewable starting point that can keep improving as AI development tools change.
 
-AI development tools accumulate valuable configuration in a user directory. That configuration is easy to lose when changing computers and difficult to review when it lives only in an application profile. This repository makes the durable parts explicit:
+## Why it is useful
 
-- instructions that shape how AI agents collaborate and make changes;
-- safe Codex defaults for approvals, sandboxing, web search, and context size;
-- repeatable custom agent definitions for review, research, and implementation;
-- documented practices for validation, delegation, compaction, and public sharing.
+AI coding tools are powerful, but good results depend on more than choosing a model. Small improvements in task framing, routing, context management, delegation, review, and documentation compound across every project. This repository makes those practices explicit and reusable:
+
+- instructions that shape how agents collaborate and make changes;
+- routing guidance that balances speed, quality, and cost;
+- context and compaction rules that help avoid unnecessary long-context charges;
+- repeatable agent roles for review, research, and implementation;
+- practical validation and safety patterns for AI-generated changes;
+- dated research so recommendations can be revisited when tools evolve.
+
+The repository also solves a practical continuity problem: useful configuration should survive a machine change and remain reviewable instead of living only inside an application profile.
 
 The repository is a source of truth, not a blind mirror of the entire Codex home directory.
 
