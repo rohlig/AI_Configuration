@@ -12,12 +12,15 @@
 | Normal implementation, research, or review | `gpt-5.6-luna` | `medium` |
 | Ambiguous or multi-step work within the cost budget | `gpt-5.6-luna` | `high` or `max` |
 | Difficult architecture, security, concurrency, or cross-system reasoning | `gpt-5.6-sol` / `gpt-5.6` | `medium` or `high` |
+| Extreme end-to-end work or complex computer control | `gpt-6-astra` | `high`, `xhigh`, or `max` |
 
 This is a routing policy, not four copies of every role. The role determines how the agent works; the spawn-time model and effort determine how much reasoning it uses. Explicit spawn values take precedence over `[agents]` defaults.
 
 ## Primary versus delegated routing
 
-The Luna Medium default is for the primary assistant handling the direct user conversation. It is not a restriction on delegated workers. A parent agent may assign a delegated task to any model and effort supported by the current runtime, including Luna, Sol, Terra, or another available model, when that is appropriate for the task. Explicit model and effort settings on a delegated task take precedence over the primary default.
+The Luna Medium default is for the primary assistant handling the direct user conversation. It is not a restriction on delegated workers. A parent agent may assign a delegated task to any model and effort supported by the current runtime, including Luna, Sol, Terra, GPT-6 Astra, or another available model, when that is appropriate for the task. Explicit model and effort settings on a delegated task take precedence over the primary default.
+
+GPT-6 Astra is an escalation route, not a new default: use it for extreme end-to-end tasks or complex computer-control workflows where its additional capability is justified. Start at the lowest suitable effort and avoid using it for routine work because its cost is materially higher.
 
 If a preferred model or delegation tool is unavailable, the worker must continue with the best available route and report what was actually used. It must not refuse work, claim that no files were inspected, or emit the primary-chat restart message solely because Sol or another preferred route is unavailable.
 

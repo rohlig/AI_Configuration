@@ -25,6 +25,10 @@ The repository now manages a portable `config.toml` baseline and three custom ag
 
 The baseline now also sets a 240k auto-compaction target and a 12k tool-output retention limit. These are conservative policy choices, not guarantees about the final request size.
 
+## Model-routing update — 2026-09-08
+
+The official [GPT-6 Astra model documentation](https://developers.openai.com/api/docs/models/gpt-6-astra) describes Astra as OpenAI's most capable model for complex reasoning, coding, computer use, research, and document creation, with `low` through `max` reasoning effort. The routing policy therefore keeps Luna Medium as the default and reserves `gpt-6-astra` for extreme end-to-end tasks and complex computer-control workflows. This is an escalation rule, not a request to change the global baseline or use Astra for routine work.
+
 ## Research limits
 
 This note does not claim that every desktop-app preference, plugin connection, skill cache, model entitlement, or account state is portable through these files. Re-check the official docs before adding new managed targets.

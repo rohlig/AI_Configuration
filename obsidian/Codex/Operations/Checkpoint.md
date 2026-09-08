@@ -17,6 +17,8 @@ The active machine configuration was compared again after another job changed it
 
 Milestone durability is now explicit: substantial workers must send compact checkpoints after meaningful phases and before context, time, or credit risk becomes critical; the parent must persist them before continuing. Read-only workers report through the task channel, while documentation writes require explicit authorization.
 
+GPT-6 Astra was added as an escalation route for extreme end-to-end work and complex computer-control workflows. Luna Medium remains the default; Astra is not a baseline setting and should use the lowest suitable effort.
+
 ## Changed
 
 - Added repository README and agent instructions.
