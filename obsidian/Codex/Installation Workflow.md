@@ -11,7 +11,9 @@
 
 ## Existing machine
 
-The script never assumes that the repository should win. It reports missing, current, or different targets. `AGENTS.md` receives only the managed context-policy block; `config.toml` receives only managed root keys, feature flags, agent defaults, and namespaced registrations. Existing MCP, plugin, project-trust, desktop, and other settings remain in place. Existing managed files are backed up before an update.
+The script never assumes that the repository should win. It reports missing, current, or different targets. `AGENTS.md` receives only the managed runtime-routing and context-policy blocks; other local instruction text remains in place. `config.toml` receives only managed portable root keys, feature flags, agent defaults, and namespaced registrations. Existing MCP, plugin, project-trust, desktop, and other settings remain in place. Existing managed files are backed up before an update.
+
+The AGENTS merge also removes duplicate copies of its managed blocks and compares the computed merged result with the original target. This prevents a stale target from being incorrectly reported as current when local or another job has changed the managed instructions.
 
 ## Rollback
 

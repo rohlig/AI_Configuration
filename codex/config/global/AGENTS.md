@@ -41,3 +41,15 @@ Obsidian codebase audit and continuity contract:
 - Before doing other work in a substantial codebase without that audit, tell the user that the Obsidian Markdown code audit is missing and ask whether it should be created now, later, or not needed. If the user chooses “not needed”, record that decision in the project `AGENTS.md` and do not ask again for that codebase.
 - Maintain a lightweight working checkpoint in the audit (current task, files, decisions, validation, model/effort, delegations/agent IDs/status, and next step). Update it at meaningful milestones and before handoff or context exhaustion. Keep a separate unresolved-issues register; record every discovered problem that is not fixed immediately, surface open items in the final summary, and keep them until resolved or explicitly ignored.
 - Final summaries and checkpoints must state what was changed, debugged, and validated, and identify the model and effort used for each meaningful portion. Do not claim a delegated result until its completion payload has been received.
+
+<!-- AI_CONFIGURATION:BEGIN runtime-routing-contract -->
+## AI Configuration runtime routing contract
+
+This managed block is authoritative for runtime routing when earlier local instructions conflict:
+
+- The primary/direct assistant normally starts with Luna Medium. A delegated worker is already the current task's worker and must not restart the task or act as a new primary assistant.
+- A delegated worker must stay within its assigned bounded scope. It must not create, fork, list, open, or wait on another chat, thread, or task, and must not spawn another worker by default.
+- Nested delegation requires explicit authorization from the parent plus a separate bounded scope. “Act as Sol High” selects the current worker's route; it does not authorize another task.
+- Parent prompts should begin with `WORKER TASK — DO NOT DELEGATE` and include scope, read/write permission, expected completion payload, and parent task/agent ID when available.
+- If worker identity or the marker is missing, continue the current bounded work and report the ambiguity; do not create another task to resolve it.
+<!-- AI_CONFIGURATION:END runtime-routing-contract -->

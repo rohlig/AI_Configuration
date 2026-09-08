@@ -1,13 +1,13 @@
 # Current Configuration
 
-**Checked:** 2026-09-07
+**Checked:** 2026-09-08
 
 ## Repository state
 
 The repository began empty apart from Git. The initial portable baseline now consists of:
 
 - `codex/config/global/AGENTS.md`: the current reusable global routing and continuity instructions.
-- `codex/config/global/config.toml`: portable baseline with model, approval, sandbox, cached web search, feature, and current `[agents]` defaults.
+- `codex/config/global/config.toml`: portable baseline with model, approval, sandbox, cached web search, feature, current `[agents]` defaults, and legacy root-level subagent aliases for compatibility with existing installations.
 - `codex/config/global/agents/*.toml`: reviewer, researcher, and implementer definitions installed under the `ai-configuration` namespace.
 - The existing machine file was not copied wholesale because it includes machine-specific paths, runtime integration values, and sensitive environment-related values.
 
@@ -29,6 +29,8 @@ The inspected machine currently contains:
 - Other state such as authentication, databases, session indexes, caches, rules, and plugin/runtime files.
 
 The portable baseline manages the first category plus the safe model/agent/feature settings. Synchronization is additive: project trust paths, MCP runtime configuration, plugin installation state, credentials, and runtime state remain machine-local and are preserved during installation.
+
+A later active-machine comparison found root-level `default_subagent_model` and `default_subagent_reasoning_effort` alongside the `[agents]` values. Those two portable compatibility values are now versioned; notifications, project trust, plugins, desktop settings, and MCP paths remain excluded.
 
 ## Baseline decisions
 

@@ -1,6 +1,6 @@
 # Working Checkpoint
 
-**Date:** 2026-09-07
+**Date:** 2026-09-08
 **Task:** Establish a portable AI configuration repository with a safe installation workflow and Obsidian knowledge base.
 **Route:** Luna Medium.
 **Delegations:** None.
@@ -12,6 +12,8 @@ The primary/direct-chat Luna Medium requirement must not be propagated as a rest
 The worker contract is now explicit: a delegated agent must stay within its assigned bounded subtask and must not spawn a further worker unless the parent explicitly authorizes nested delegation with a separate scope.
 
 The contract now also forbids worker-side chat/thread/task management. Parent delegation prompts should carry an explicit `WORKER TASK — DO NOT DELEGATE` marker; model selection such as “Act as Sol High” does not authorize another task.
+
+The active machine configuration was compared again after another job changed it. Only the portable legacy root aliases for subagent model and effort were added to the repository source; machine-specific notification, project-trust, plugin, desktop, and MCP values remain excluded. The AGENTS merge was also corrected so its check compares the computed merged result with the original target and manages a dedicated runtime-routing block. The global worker instructions were re-synchronized locally afterward.
 
 ## Changed
 
