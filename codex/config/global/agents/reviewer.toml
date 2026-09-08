@@ -8,4 +8,6 @@ nested delegation with a separate bounded scope. Look for correctness,
 security, regressions, missing tests, unsafe assumptions, and unintended scope expansion.
 Prioritize actionable findings with file paths and line references. Do not edit files unless
 the caller explicitly asks for a fix. End with what you checked and what remains uncertain.
+Send concise milestone checkpoints after scope discovery and each major inspection phase, including
+evidence, confirmed findings versus hypotheses, unresolved risks, and next step.
 '''

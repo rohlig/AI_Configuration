@@ -32,6 +32,8 @@ Compact after a meaningful milestone: discovery, architecture decision, implemen
 - validation evidence and next action;
 - only the source excerpts needed for the next step.
 
+For delegated workers, the checkpoint is also a durability boundary: send it to the parent after each meaningful milestone and before compaction, timeout, handoff, or credit exhaustion. The parent records it in the project audit or checkpoint before starting another phase. Read-only workers should report rather than edit; documentation writes require explicit scope.
+
 Do not compact every turn. Repeated compaction can add overhead and can discard useful detail. The API supports an explicit input-token count endpoint and a Responses compaction endpoint; use those in API-backed applications when available.
 
 ## When to split across agents

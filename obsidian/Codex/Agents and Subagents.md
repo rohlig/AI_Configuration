@@ -27,6 +27,12 @@ Every delegated task starts as a worker task, even when its assigned model is So
 
 The parent should prefix each delegated prompt with `WORKER TASK — DO NOT DELEGATE` and provide the scope, read/write permission, expected completion payload, and parent task/agent ID when available. “Act as Sol High” selects the worker's route; it is not permission to create another task. If the marker or runtime worker identity is missing, the current task continues and the ambiguity is reported rather than resolved by spawning another task.
 
+## Milestones and durable handoffs
+
+For substantial work, the worker returns a concise checkpoint after discovery, each major decision or implementation batch, and validation. Each checkpoint contains: objective, completed work, evidence and file paths, decisions/assumptions, unresolved risks, and next step. The parent persists meaningful checkpoints in the project audit or `obsidian/Codex/Operations/Checkpoint.md` before continuing. A final completion payload is not the only durable handoff.
+
+Read-only workers report these checkpoints through the parent/task channel and do not edit documentation. If the parent explicitly grants documentation write access, the worker updates only the smallest relevant checkpoint or audit note. Near context, time, or credit limits, the worker stops broad exploration and sends a compact checkpoint immediately.
+
 ## Correct delegation pattern
 
 1. Keep the main task moving locally; delegate only a bounded, non-overlapping subtask.
