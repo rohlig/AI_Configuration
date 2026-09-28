@@ -10,19 +10,20 @@
 |---|---|---|
 | Mechanical lookup, narrow review, small bounded edit | `gpt-6-luna` | `low` |
 | Normal implementation, research, or review | `gpt-6-luna` | `medium` |
-| Ambiguous or multi-step work within the cost budget | `gpt-6-luna` | `high` or `max` |
+| Difficult but bounded reasoning where cost matters | `gpt-6-luna` | `high` or `max` |
 | Difficult architecture, security, concurrency, or cross-system reasoning | `gpt-6-sol` | `high` |
 | Simple, well-bounded computer use | `gpt-6-luna` | `low` or `medium` |
-| Complex, multi-step computer control | `gpt-6-sol` | `high` or `xhigh` |
+| Demanding but bounded multi-step computer use | `gpt-6-luna` | `high` or `max` |
+| Computer control with uncertain state, complex recovery, or cross-app reasoning | `gpt-6-sol` | `high` or `xhigh` |
 | Extreme end-to-end work or computer control beyond Sol | `gpt-6-astra` | `high`, `xhigh`, or `max` |
 
 This is a routing policy, not four copies of every role. The role determines how the agent works; the spawn-time model and effort determine how much reasoning it uses. Explicit spawn values take precedence over `[agents]` defaults.
 
 ## Primary versus delegated routing
 
-GPT-6 Luna Medium is the primary assistant default. Delegated workers default to GPT-6 Sol High for more capable parallel work. For simple, tightly bounded subtasks, the parent can select GPT-6 Luna Low or Medium; for extreme end-to-end tasks or complex computer-control workflows, select GPT-6 Astra at an appropriate high effort. Explicit model and effort settings on a delegated task take precedence over these defaults.
+GPT-6 Luna Medium is the primary assistant default. Delegated workers default to GPT-6 Sol High. For difficult but bounded work where Luna is likely sufficient, use Luna High or Max before escalating to Sol; simple subtasks can use Luna Low or Medium. Explicit model and effort settings on a delegated task take precedence over these defaults.
 
-All three GPT-6 models support Computer Use. Use Luna for straightforward UI operations, Sol High for longer or less predictable interaction sequences, and Astra when the workflow is extreme or Sol is not sufficient. OpenAI describes Astra as state-of-the-art for computer use; the official guidance does not claim that every GPT-6 model outperforms the prior generation in every UI task. Astra's per-token price is higher, so reserve it for workflows that need its capability.
+All three GPT-6 models support Computer Use. Use Luna Low/Medium for straightforward UI operations and Luna High/Max for demanding but bounded interaction sequences. Use Sol High when the UI state is uncertain, recovery is complex, or several applications require coordinated reasoning. Reserve Astra for extreme workflows beyond Sol. OpenAI describes Astra as state-of-the-art for computer use; the official guidance does not claim that every GPT-6 model outperforms the prior generation in every UI task. Astra's per-token price is higher, so reserve it for workflows that need its capability.
 
 If a preferred model or delegation tool is unavailable, the worker must continue with the best available route and report what was actually used. It must not refuse work, claim that no files were inspected, or emit the primary-chat restart message solely because Sol or another preferred route is unavailable.
 
@@ -52,7 +53,7 @@ Example prompt shape:
 ```text
 Review only src/auth/ for security regressions introduced by the current diff.
 Do not edit files. Return findings with file paths, severity, and evidence.
-Use gpt-6-sol at high effort unless the parent explicitly selects a different route.
+Use gpt-6-luna at high effort for difficult but bounded work where Luna is likely sufficient. Use gpt-6-sol at high effort when the task needs stronger reasoning across uncertain state, recovery, or systems. The parent may specify another route.
 ```
 
 ## Custom agent files

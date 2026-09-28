@@ -51,7 +51,7 @@ Codex layers more-specific project files on top of these global defaults. Projec
 
 ## Agent and context policy
 
-The primary assistant defaults to GPT-6 Luna Medium. Delegated workers default to GPT-6 Sol High; simple bounded tasks, including straightforward computer use, can use Luna at lower effort. Complex multi-step UI work uses Sol High, and extreme work can escalate to GPT-6 Astra. Agents receive only the files and facts they need, return concise structured results, and are integrated by the primary agent.
+The primary assistant defaults to GPT-6 Luna Medium. Delegated workers default to GPT-6 Sol High; difficult but bounded reasoning and UI tasks can use Luna High/Max when it is likely sufficient. Use Sol High for uncertain multi-application work and complex recovery; reserve Astra for extreme tasks. Agents receive only the files and facts they need, return concise structured results, and are integrated by the primary agent.
 
 The configuration also enables early context compaction at `240000` input tokens and limits retained tool output to `12000` tokens. This is a cost-control buffer around the documented long-context pricing boundary; it is not a guarantee because system instructions and tool overhead also count.
 
