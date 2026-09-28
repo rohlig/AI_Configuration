@@ -1,6 +1,6 @@
 # Current Configuration
 
-**Checked:** 2026-09-08
+**Checked:** 2026-09-28
 
 ## Repository state
 
@@ -30,7 +30,7 @@ The inspected machine currently contains:
 
 The portable baseline manages the first category plus the safe model/agent/feature settings. Synchronization is additive: project trust paths, MCP runtime configuration, plugin installation state, credentials, and runtime state remain machine-local and are preserved during installation.
 
-GPT-6 Astra is available as an escalation route for extreme end-to-end work and complex computer-control workflows; Luna Medium remains the normal default and Astra is not configured as the baseline model.
+GPT-6 Luna at medium effort is the primary default. GPT-6 Sol at high effort is the default worker route. For computer use, use Luna for straightforward UI operations, Sol High for complex multi-step interactions, and Astra for extreme workflows that exceed Sol.
 
 A later active-machine comparison found root-level `default_subagent_model` and `default_subagent_reasoning_effort` alongside the `[agents]` values. Those two portable compatibility values are now versioned; notifications, project trust, plugins, desktop settings, and MCP paths remain excluded.
 

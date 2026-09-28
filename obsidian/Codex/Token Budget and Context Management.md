@@ -6,7 +6,7 @@ Keep long-running AI coding work below the long-context pricing boundary wheneve
 
 ## Known boundary
 
-The official GPT-5.6 Sol model page states that prompts over **272k input tokens** are priced at 2× input and 1.5× output for the full request. The same page lists a 1.05M context window, so crossing the boundary is usually a cost event rather than an immediate context-capacity failure. The exact pricing behavior must be checked for the selected model; do not assume that every model has the same rule.
+The current official GPT-6 Luna, Sol, and Astra model pages state that prompts over **272k input tokens** are priced at 2× input/cache rates and 1.5× output for the full request. Each lists a 1.05M context window, so crossing the pricing boundary is a cost event before it is a context-capacity limit. Re-check the selected model's official page before future model changes.
 
 ## Repository policy
 

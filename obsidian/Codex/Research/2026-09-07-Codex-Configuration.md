@@ -16,7 +16,6 @@
 - Current official agent configuration supports `[agents]` keys for `enabled`, `max_concurrent_threads_per_session`, `default_subagent_model`, `default_subagent_reasoning_effort`, and `interrupt_message`.
 - Custom agents use `name`, `description`, and `developer_instructions`; they can also set supported config values such as `model`, `model_reasoning_effort`, `sandbox_mode`, `mcp_servers`, and `skills.config`.
 - Explicit model and reasoning values supplied when spawning an agent take precedence over the global `[agents]` defaults.
-- The official GPT-5.6 Sol model page states that prompts over 272k input tokens receive 2× input and 1.5× output pricing for the full request, despite the model exposing a 1.05M context window.
 - The API exposes input-token counting and Responses compaction operations; compaction should be used at milestones rather than mechanically on every turn.
 
 ## Design impact
@@ -25,9 +24,13 @@ The repository now manages a portable `config.toml` baseline and three custom ag
 
 The baseline now also sets a 240k auto-compaction target and a 12k tool-output retention limit. These are conservative policy choices, not guarantees about the final request size.
 
-## Model-routing update — 2026-09-08
+## Model-routing update — 2026-09-28
 
-The official [GPT-6 Astra model documentation](https://developers.openai.com/api/docs/models/gpt-6-astra) describes Astra as OpenAI's most capable model for complex reasoning, coding, computer use, research, and document creation, with `low` through `max` reasoning effort. The routing policy therefore keeps Luna Medium as the default and reserves `gpt-6-astra` for extreme end-to-end tasks and complex computer-control workflows. This is an escalation rule, not a request to change the global baseline or use Astra for routine work.
+Current [OpenAI model guidance](https://developers.openai.com/api/docs/models) identifies `gpt-6-luna` for efficient, focused work, `gpt-6-sol` for complex coding and agentic workflows, and `gpt-6-astra` for the hardest end-to-end work. The [Luna](https://developers.openai.com/api/docs/models/gpt-6-luna), [Sol](https://developers.openai.com/api/docs/models/gpt-6-sol), and [Astra](https://developers.openai.com/api/docs/models/gpt-6-astra) model pages all list Computer Use support. The [model guide](https://developers.openai.com/api/docs/guides/latest-model) calls Astra state-of-the-art for computer use, and the [September 25 changelog](https://developers.openai.com/api/docs/changelog) reports image-encoding improvements for Luna and Sol that affect visual tasks including computer use. This supports routing simple UI work to Luna and more complex sequences to Sol High, reserving Astra for extreme cases; it does not establish a blanket comparative win over the previous generation for every model and UI task.
+
+The selected configuration uses Luna Medium for the primary assistant, Sol High as the delegated-worker default, and Astra for extreme tasks. Model-specific spawn settings can still override these defaults.
+
+Official model pages checked on this date list standard prices per million tokens as Luna $0.10 input/$0.50 output, Sol $2/$10, and Astra $10/$50. All three document the 2× input/cache and 1.5× output pricing for prompts exceeding 272k input tokens. Check again before future routing changes because prices and availability may change.
 
 ## Research limits
 
