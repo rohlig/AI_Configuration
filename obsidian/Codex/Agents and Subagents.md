@@ -2,7 +2,7 @@
 
 ## Global defaults
 
-`codex/config/global/config.toml` registers the current `[agents]` configuration and custom roles. The three files are role prompts, not model variants. They intentionally omit `model` and `model_reasoning_effort`, so they inherit the subagent defaults or can be launched with an explicit model/effort for the individual task. The primary default is GPT-6 Luna Medium; the worker default is GPT-6 Sol High, with up to six concurrently open spawned-agent threads.
+`codex/config/global/config.toml` registers the current `[agents]` configuration and custom roles. The three files are role prompts, not model variants. They intentionally omit `model` and `model_reasoning_effort`, so they inherit the subagent defaults or can be launched with an explicit model/effort for the individual task. The portable config requests GPT-6 Luna Medium as the session default; spawned workers default to GPT-6 Sol High, with up to six concurrently open spawned-agent threads. A config default is not runtime introspection and must not be used to infer the active model or effort.
 
 ## Routing matrix
 
@@ -19,13 +19,15 @@
 
 This is a routing policy, not four copies of every role. The role determines how the agent works; the spawn-time model and effort determine how much reasoning it uses. Explicit spawn values take precedence over `[agents]` defaults.
 
-## Primary versus delegated routing
+## Current thread versus spawned-worker routing
 
-GPT-6 Luna Medium is the primary assistant default. Delegated workers default to GPT-6 Sol High. For difficult but bounded work where Luna is likely sufficient, use Luna High or Max before escalating to Sol; simple subtasks can use Luna Low or Medium. Explicit model and effort settings on a delegated task take precedence over these defaults.
+Treat the current conversation as the main/planning thread unless the platform explicitly identifies it as a delegated worker or supplies a bounded worker assignment. Model/effort recommendations below apply when selecting spawned workers; they do not reclassify or restart the current thread. If runtime model metadata is missing, continue normally and do not guess or claim a model. If the spawn mechanism cannot select a model or effort, use the available mechanism without claiming an unverified route. Explicit supported spawn-time settings take precedence over worker defaults.
+
+The main thread owns planning, integration, and the final answer. For substantial tasks, delegate at least one independent, bounded workstream when parallel work materially improves speed, coverage, or quality and a supported spawn mechanism is available. Keep small, sequential, tightly coupled, or shared-state work in the main thread; duplicated context and token cost count against delegation.
 
 All three GPT-6 models support Computer Use. Use Luna Low/Medium for straightforward UI operations and Luna High/Max for demanding but bounded interaction sequences. Use Sol High when the UI state is uncertain, recovery is complex, or several applications require coordinated reasoning. Reserve Astra for extreme workflows beyond Sol. OpenAI describes Astra as state-of-the-art for computer use; the official guidance does not claim that every GPT-6 model outperforms the prior generation in every UI task. Astra's per-token price is higher, so reserve it for workflows that need its capability.
 
-If a preferred model or delegation tool is unavailable, the worker must continue with the best available route and report what was actually used. It must not refuse work, claim that no files were inspected, or emit the primary-chat restart message solely because Sol or another preferred route is unavailable.
+If a preferred model or delegation tool is unavailable, continue with the best available route and report the concrete limitation only when relevant. Do not refuse work, claim that no files were inspected, or emit a restart message because a preferred route or model label is unavailable.
 
 ## Worker identity and nested delegation
 

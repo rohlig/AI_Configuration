@@ -30,7 +30,7 @@ The inspected machine currently contains:
 
 The portable baseline manages the first category plus the safe model/agent/feature settings. Synchronization is additive: project trust paths, MCP runtime configuration, plugin installation state, credentials, and runtime state remain machine-local and are preserved during installation.
 
-GPT-6 Luna at medium effort is the primary default. GPT-6 Sol at high effort is the default worker route. Use Luna High/Max for difficult but bounded reasoning or UI workflows when Luna is likely sufficient; use Sol High for difficult architecture or computer control with uncertain state and complex recovery. Astra is for extreme workflows beyond Sol.
+The portable `config.toml` requests GPT-6 Luna at medium effort as the session default; the configuration is not a way for an assistant to inspect the runtime-selected model or effort. The current conversation should continue as the main/planning thread unless explicitly identified as a worker. Spawned workers default to GPT-6 Sol High, with Luna High/Max as the cost-conscious route for difficult but bounded work and Astra for extreme tasks. Spawn-time routing recommendations apply only when the tool supports those selections.
 
 A later active-machine comparison found root-level `default_subagent_model` and `default_subagent_reasoning_effort` alongside the `[agents]` values. Those two portable compatibility values are now versioned; notifications, project trust, plugins, desktop settings, and MCP paths remain excluded.
 

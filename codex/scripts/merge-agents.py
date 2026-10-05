@@ -40,7 +40,7 @@ def merge_managed_block(text, managed, start_marker, end_marker):
     without_blocks = pattern.sub("", text)
     before = without_blocks[:insertion_at].rstrip()
     after = without_blocks[insertion_at:].lstrip()
-    return before + "\n\n" + managed + ("\n\n" + after if after else "\n")
+    return (before + ("\n\n" if before else "")) + managed + ("\n\n" + after if after else "\n")
 
 
 runtime_managed = managed_block(source, runtime_start, runtime_end)

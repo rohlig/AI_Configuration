@@ -1,17 +1,19 @@
 # Working Checkpoint
 
-**Date:** 2026-09-28
-**Task:** Clarify GPT-6 Luna High/Max as the cost-conscious middle route before Sol for difficult but bounded tasks.
-**Route:** GPT-6 Luna Medium.
+**Date:** 2026-10-01
+**Task:** Remove false runtime-model self-checks and clarify that model routing applies to spawned workers.
+**Route:** Main/planning thread; runtime model and effort are not exposed in this task context.
 **Delegations:** None.
 
 ## Latest routing clarification
 
-The primary default is `gpt-6-luna` at Medium. Delegated workers default to `gpt-6-sol` at High. Use Luna High/Max for difficult but bounded reasoning or UI work when Luna is likely sufficient; use Sol High for uncertain state, complex recovery, and cross-system judgment; reserve Astra for extreme work beyond Sol. Official model and computer-use guidance and pricing were checked on 2026-09-28.
+The portable config requests `gpt-6-luna` at Medium as the session default. Spawned workers default to `gpt-6-sol` at High. Use Luna High/Max for difficult but bounded reasoning or UI work when Luna is likely sufficient; use Sol High for uncertain state, complex recovery, and cross-system judgment; reserve Astra for extreme work beyond Sol. Official model and computer-use guidance and pricing were checked on 2026-09-28.
 
 Luna High/Max is an explicit performance/cost option, not just an allowed effort hidden in the general matrix. Official listed per-token prices are substantially lower for Luna than Sol, though total cost still depends on token usage and task duration. The README, global policy, agent-routing note, current-config note, and research note now consistently describe this middle route.
 
-The primary/direct-chat Luna Medium requirement must not be propagated as a restriction to delegated agents. Delegated agents may use any available model and effort, and must continue with the best available route if a preferred model such as Sol is unavailable. The primary-chat restart message applies only to the primary assistant.
+Previous versions incorrectly told the primary thread to restart when its runtime did not match Luna Medium. That rule is removed: a config default does not establish the active model, and the task should continue in the main/planning thread. Delegated agents may use any available model and effort and should continue if a preferred route such as Sol is unavailable.
+
+Correction (2026-10-01): no instruction can establish the active model/effort when the runtime does not expose it. The current thread continues as main/planning unless explicitly identified as a worker; missing or unexpected model labels are never a reason to stop, refuse, or request a restart. Model/effort routing is for spawned workers only and is applied only when the spawn mechanism supports it. Delegate substantial work by default only when independent bounded workstreams benefit from parallelism; keep sequential/shared-state work together to limit duplicate context and cost.
 
 The worker contract is now explicit: a delegated agent must stay within its assigned bounded subtask and must not spawn a further worker unless the parent explicitly authorizes nested delegation with a separate scope.
 
@@ -46,8 +48,14 @@ All three GPT-6 models list Computer Use support. Luna Low/Medium handles simple
 
 ## Validation completed
 
-- Re-synced the changed global `AGENTS.md` additively into `/Users/rubenohlig/.codex/AGENTS.md`; the prior local file was backed up. Local `--check` passed afterward.
-- `--help`, public audit, shell syntax check, `git diff --check`, and isolated temporary-`CODEX_HOME` check passed. The isolated check correctly reported the five expected targets as missing.
+- Removed the unsupported primary-thread model/effort self-check and restart message; documented that current-thread role and runtime model identity are separate.
+- Clarified that model/effort recommendations govern spawned workers only, and that model selection is claimed only when the spawn mechanism supports it.
+- Added a complexity/decomposability threshold for proactive delegation to balance parallel benefit against duplicated context and token cost.
+- Fixed an additive-sync idempotency defect found during isolated testing: a fresh AGENTS merge introduced leading blank lines, so the immediate `--check` failed until a second merge. The merge now omits the separator when inserting at the start of a file.
+- Removed an old machine-specific absolute path from this public checkpoint after the privacy audit flagged it.
+
+- Re-synced the changed global `AGENTS.md` additively into the local Codex home; the prior local file was backed up. The subsequent local `--check` passed.
+- `--help`, public audit, Python syntax compilation, shell syntax check, `git diff --check`, and fresh temporary-`CODEX_HOME` install followed by `--check` passed after the idempotency fix.
 - Repository search found no remaining `gpt-5` or `5.6` routing references.
 
 - Updated the portable config, global routing policy, routing matrix, current-configuration note, research note, token-cost guidance, and this checkpoint to use only the GPT-6 model family.
