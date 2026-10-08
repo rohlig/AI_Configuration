@@ -1,15 +1,19 @@
 # Working Checkpoint
 
-**Date:** 2026-10-01
-**Task:** Remove false runtime-model self-checks and clarify that model routing applies to spawned workers.
-**Route:** Main/planning thread; runtime model and effort are not exposed in this task context.
+**Date:** 2026-10-08
+**Task:** Update routing to GPT-6.1 Sol at higher reasoning effort for very hard work and Astra only on explicit user request.
+**Route:** GPT-6 Luna Medium for this bounded documentation/configuration task; actual runtime model/effort metadata was unavailable.
 **Delegations:** None.
+
+## Latest routing update (2026-10-08)
+
+Portable worker defaults now use `gpt-6.1-sol` at xhigh. Difficult and very hard work stays on Sol 6.1, using xhigh or max; Astra is used only when specifically requested by the user. Luna Low/Medium remains for simple or routine cost-sensitive tasks. Updated source: `config.toml`, global `AGENTS.md`, README, and the routing/current-configuration/research notes. OpenAI's official model page checked 2026-10-08 describes Sol 6.1 as near-Astra performance for complex work at lower cost and lists xhigh and max reasoning efforts. The owner authorized standing automatic sync of validated portable Codex configuration changes to this machine; the repo instructions now record that preference. This update was installed to `~/.codex/AGENTS.md` and `~/.codex/config.toml`, with backups at `~/.codex/backups/ai-configuration/20261008-142705/`; final sync check reports all managed files current, and both legacy and `[agents]` defaults are Sol 6.1 xhigh. No unresolved issue was identified. Validation passed: TOML parsed with both worker aliases set to the expected model/effort; shell syntax check, help, public audit, and `git diff --check` passed. An isolated temporary Codex home correctly reported managed targets missing in `--check` mode.
 
 ## Latest routing clarification
 
-The portable config requests `gpt-6-luna` at Medium as the session default. Spawned workers default to `gpt-6-sol` at High. Use Luna High/Max for difficult but bounded reasoning or UI work when Luna is likely sufficient; use Sol High for uncertain state, complex recovery, and cross-system judgment; reserve Astra for extreme work beyond Sol. Official model and computer-use guidance and pricing were checked on 2026-09-28.
+Historical note (superseded 2026-10-08): earlier routing documentation used Luna High/Max as the middle step and the previous Sol model at High effort for harder reasoning, with Astra for extreme tasks. The current policy uses Sol 6.1 xhigh/max for difficult and very hard work, with Astra only on explicit request.
 
-Luna High/Max is an explicit performance/cost option, not just an allowed effort hidden in the general matrix. Official listed per-token prices are substantially lower for Luna than Sol, though total cost still depends on token usage and task duration. The README, global policy, agent-routing note, current-config note, and research note now consistently describe this middle route.
+Historical note (superseded 2026-10-08): an earlier policy described Luna High/Max as an explicit performance/cost option for difficult work. Current routing uses Luna Low/Medium for simple or routine cost-sensitive work and Sol 6.1 xhigh/max for difficult and very hard work.
 
 Previous versions incorrectly told the primary thread to restart when its runtime did not match Luna Medium. That rule is removed: a config default does not establish the active model, and the task should continue in the main/planning thread. Delegated agents may use any available model and effort and should continue if a preferred route such as Sol is unavailable.
 
@@ -17,13 +21,13 @@ Correction (2026-10-01): no instruction can establish the active model/effort wh
 
 The worker contract is now explicit: a delegated agent must stay within its assigned bounded subtask and must not spawn a further worker unless the parent explicitly authorizes nested delegation with a separate scope.
 
-The contract now also forbids worker-side chat/thread/task management. Parent delegation prompts should carry an explicit `WORKER TASK — DO NOT DELEGATE` marker; model selection such as “Act as Sol High” does not authorize another task.
+The contract now also forbids worker-side chat/thread/task management. Parent delegation prompts should carry an explicit `WORKER TASK — DO NOT DELEGATE` marker; model selection such as “Act as Sol 6.1 xhigh” does not authorize another task.
 
 The active machine configuration was compared again after another job changed it. Only the portable legacy root aliases for subagent model and effort were added to the repository source; machine-specific notification, project-trust, plugin, desktop, and MCP values remain excluded. The AGENTS merge was also corrected so its check compares the computed merged result with the original target and manages a dedicated runtime-routing block. The global worker instructions were re-synchronized locally afterward.
 
 Milestone durability is now explicit: substantial workers must send compact checkpoints after meaningful phases and before context, time, or credit risk becomes critical; the parent must persist them before continuing. Read-only workers report through the task channel, while documentation writes require explicit authorization.
 
-All three GPT-6 models list Computer Use support. Luna Low/Medium handles simple UI work; Luna High/Max covers demanding but bounded workflows; Sol High handles uncertain state, complex recovery, or cross-application reasoning; Astra is reserved for extreme cases beyond Sol. Official sources do not establish a blanket previous-generation performance win for each model in every computer-use scenario.
+Historical routing note (superseded 2026-10-08): the older policy routed uncertain computer use to Sol at High effort and reserved Astra for extreme cases. Current computer-use routing uses Sol 6.1 xhigh/max for demanding and very hard tasks; Astra is used only on explicit user request.
 
 ## Changed
 
@@ -59,7 +63,7 @@ All three GPT-6 models list Computer Use support. Luna Low/Medium handles simple
 - Repository search found no remaining `gpt-5` or `5.6` routing references.
 
 - Updated the portable config, global routing policy, routing matrix, current-configuration note, research note, token-cost guidance, and this checkpoint to use only the GPT-6 model family.
-- Set primary defaults to `gpt-6-luna` Medium and worker defaults to `gpt-6-sol` High; documented GPT-6 Astra as the extreme-task route.
+- Set primary defaults to `gpt-6-luna` Medium and worker defaults to `gpt-6.1-sol` xhigh; documented Astra as opt-in by explicit user request.
 - Official OpenAI model guidance confirms the three model IDs, their workload positioning, current prices, and the over-272k pricing boundary.
 
 - `bash -n codex/scripts/sync-config.sh` passed.

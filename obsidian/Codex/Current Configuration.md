@@ -1,6 +1,6 @@
 # Current Configuration
 
-**Checked:** 2026-09-28
+**Checked:** 2026-10-08
 
 ## Repository state
 
@@ -30,7 +30,7 @@ The inspected machine currently contains:
 
 The portable baseline manages the first category plus the safe model/agent/feature settings. Synchronization is additive: project trust paths, MCP runtime configuration, plugin installation state, credentials, and runtime state remain machine-local and are preserved during installation.
 
-The portable `config.toml` requests GPT-6 Luna at medium effort as the session default; the configuration is not a way for an assistant to inspect the runtime-selected model or effort. The current conversation should continue as the main/planning thread unless explicitly identified as a worker. Spawned workers default to GPT-6 Sol High, with Luna High/Max as the cost-conscious route for difficult but bounded work and Astra for extreme tasks. Spawn-time routing recommendations apply only when the tool supports those selections.
+The portable `config.toml` requests GPT-6 Luna at medium effort as the session default; the configuration is not a way for an assistant to inspect the runtime-selected model or effort. The current conversation should continue as the main/planning thread unless explicitly identified as a worker. Spawned workers default to GPT-6.1 Sol xhigh. Use Luna Low/Medium for simple or routine cost-sensitive work; use Sol 6.1 xhigh/max for difficult and very hard work. Use Astra only when the user specifically requests it. Spawn-time routing recommendations apply only when the tool supports those selections. OpenAI's model guidance checked 2026-10-08 describes Sol 6.1 as near-Astra performance at lower cost: [model page](https://developers.openai.com/api/docs/models/gpt-6.1-sol).
 
 A later active-machine comparison found root-level `default_subagent_model` and `default_subagent_reasoning_effort` alongside the `[agents]` values. Those two portable compatibility values are now versioned; notifications, project trust, plugins, desktop settings, and MCP paths remain excluded.
 

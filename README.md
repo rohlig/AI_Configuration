@@ -51,7 +51,7 @@ Codex layers more-specific project files on top of these global defaults. Projec
 
 ## Agent and context policy
 
-The Codex config requests GPT-6 Luna Medium as its session default, but that setting is not runtime introspection: instructions must not guess the active model or stop/restart work when the runtime does not expose it. The current conversation continues as the main/planning thread unless explicitly identified as a worker. Model routing is for spawned workers: Luna High/Max for difficult but bounded work, Sol High for uncertain or cross-system work, Astra for extreme tasks. Delegate substantial tasks when independent bounded workstreams make parallelism worthwhile; keep sequential or shared-state work together to avoid duplicated context and cost.
+The Codex config requests GPT-6 Luna Medium as its session default, but that setting is not runtime introspection: instructions must not guess the active model or stop/restart work when the runtime does not expose it. The current conversation continues as the main/planning thread unless explicitly identified as a worker. Model routing is for spawned workers: Luna Low/Medium for simple or routine cost-sensitive work; GPT-6.1 Sol xhigh/max for difficult and very hard work; Astra only when the user specifically requests it. Delegate substantial tasks when independent bounded workstreams make parallelism worthwhile; keep sequential or shared-state work together to avoid duplicated context and cost.
 
 The configuration also enables early context compaction at `240000` input tokens and limits retained tool output to `12000` tokens. This is a cost-control buffer around the documented long-context pricing boundary; it is not a guarantee because system instructions and tool overhead also count.
 

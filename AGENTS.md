@@ -9,6 +9,7 @@ This repository is the portable source of truth for reusable AI-assisted develop
 - Inspect the current repository state before changing files.
 - Treat `codex/config/` as Codex source files and the user’s Codex home as a deployment target. Keep general AI practices under `obsidian/General/`.
 - Before running a command that writes to `~/.codex` or another machine-level location, explain the files and paths involved and ask for confirmation. The sync script already implements this safeguard.
+- Standing owner authorization for this checkout: after validating changes to the portable Codex configuration, apply them to the configured local Codex home with `./codex/scripts/sync-config.sh --install --yes` and verify with `--check`. Preserve the installer's backups. This authorization covers the current machine's configured Codex home only; confirm before writing to any other machine-level path.
 - Prefer a dry run or `--check` before installation. Preserve backups when replacing an existing file.
 - Never store credentials, personal data, machine-specific absolute paths, or plugin secrets in Git.
 - Keep project-specific instructions in the project that needs them; keep this repository’s global instructions broadly reusable.

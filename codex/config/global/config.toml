@@ -6,8 +6,8 @@ model = "gpt-6-luna"
 model_reasoning_effort = "medium"
 # Keep the legacy root-level aliases as well as the [agents] values below.
 # Some existing Codex installations still retain or read these keys.
-default_subagent_model = "gpt-6-sol"
-default_subagent_reasoning_effort = "high"
+default_subagent_model = "gpt-6.1-sol"
+default_subagent_reasoning_effort = "xhigh"
 # Compact before the long-context pricing boundary has a chance to be crossed.
 # This is a policy buffer, not a guarantee: tool/runtime overhead can vary.
 model_auto_compact_token_limit = 240000
@@ -20,8 +20,8 @@ service_tier = "default"
 [agents]
 enabled = true
 max_concurrent_threads_per_session = 6
-default_subagent_model = "gpt-6-sol"
-default_subagent_reasoning_effort = "high"
+default_subagent_model = "gpt-6.1-sol"
+default_subagent_reasoning_effort = "xhigh"
 interrupt_message = true
 
 [agents.portable_reviewer]
